@@ -24,7 +24,7 @@ STEP 1:
 
 STEP 2:
   The 'style' object has the 'color' property hard-coded to "royalblue".
-  What the value of 'color' should be instead is a ternary expression that goes like this:
+  What the value of 'color' should be instead is a ternary expression that goes like this: // ternary = 3 parts
   If count is even, then "royalblue", else "crimson".
 
 STEP 3:
@@ -46,32 +46,77 @@ STEP 6:
   This click handler needs to use 'setCount' to set the 'count' to be zero again.
 */
 
-import React from 'react'; /* STEP 0 */
+import React, { useState } from 'react'; /* STEP 0 */
+// let lesColores = lesColores;
+// let prevCount = prevCount;
 
-export default function Counter() {
+function Counter() {
   /* STEP 1 */
+  let [count, setCount] = useState(0); // ensure import is correct or page turns blank
+  // const [counterColor, setcounterColor] = useState(lesColores);
+  
+
+ // STEP 2:
+  // The 'style' object has the 'color' property hard-coded to "royalblue".
+  // What the value of 'color' should be instead is a ternary expression that goes like this:
+  // If count is even, then "royalblue", else "crimson".
 
   const increment = () => {
     /* STEP 4 */
+    setCount(prevCount => prevCount +1); //function version to dodge overwriting, woult otherwise be: setCount(count-1) //just count
+    // const prevCount = prevCount;
+    // return prevCount;
   };
   const decrement = () => {
     /* STEP 5 */
+    setCount(prevCount => prevCount -1);
+    // const prevCount = prevCount;
+    // return prevCount;
   };
+
+  // console.log(count)
+  // let cheezyWay = count % 2
+  // console.log(cheezyWay)
+
+  // if (cheezyWay === 0) {
+  //   lesColores = 'royalblue';
+  // } {
+  //   lesColores = 'crimson';
+  // };
+
+  // if (cheezyWay === 1) {
+  //   style.color = 'royalblue';
+  // } {
+  //   style.color = 'crimson';
+  // };
+
+
+
   const reset = () => {
     /* STEP 6 */
+    setCount(prevCount => 0);
   };
 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    color:  ((count % 2 === 0) ? 'royalblue' : 'crimson')
   };
+
+  let stateOfCount = stateOfCount;
+  // Number {count} is {(count % 2 === 0) ? 'even' : 'odd'}; {/* STEP 3 */} -------> this is a ternary function
 
   return (
     <div className='widget-counter container'>
       <h2>Counter</h2>
       <div id='count' style={style}>
-        Number 0 is even {/* STEP 3 */}
+        Number {count} is {(count % 2 === 0) ? 'even' : 'odd'}; {/* STEP 3 */} 
+
+        {/* STEP 3:
+  We need to replace some hard-coded info in the JSX with expressions, interpolated inside curly brackets.
+  Start by replacing the character "0" with {count}. The 'count' slice of state is the source of truth here.
+  Then, replace the word "even" with a ternary: {if count is even number, then string "even", else string "odd"}. */}
+
       </div>
       <div>
         <button id='increment' onClick={increment}>Increment</button>
@@ -81,3 +126,5 @@ export default function Counter() {
     </div>
   );
 }
+
+export default Counter;
